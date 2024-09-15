@@ -8,14 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = ContentViewModel()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            Button("START") {
+                if !viewModel.isRunning {
+                    viewModel.startOperations()
+                }
+            }
+                .padding(15)
+                .disabled(viewModel.isRunning)
+                .background(
+                    Color(
+                        red: 253 / 255,
+                        green: 198 / 255,
+                        blue: 5 / 255
+                    )
+                )
+                .clipShape(.rect(cornerRadius: 8))
+
+            Button("STOP") {
+                if viewModel.isRunning {
+                    viewModel.stopOperation()
+                }
+            }
+                .padding(15)
+                .disabled(!viewModel.isRunning)
+                .background(
+                    Color(
+                        red: 253 / 255,
+                        green: 198 / 255,
+                        blue: 5 / 255
+                    )
+                )
+                .clipShape(.rect(cornerRadius: 8))
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 20 / 255, green: 40 / 255, blue: 58 / 255))
     }
 }
 
